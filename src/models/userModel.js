@@ -44,6 +44,17 @@ export const UserModel = {
     return data;
   },
 
+  async findByEmailOrUsername(emailOrUsername) {
+    const { data, error } = await supabase
+      .from("users")
+      .select("*")
+      .or(`email.eq.${emailOrUsername},username.eq.${emailOrUsername}`)
+      .single();
+
+    if (error) throw error;
+    return data;
+  },
+
   async findByActivationToken(token) {
     const { data, error } = await supabase
       .from("users")
