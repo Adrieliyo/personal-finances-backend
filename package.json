@@ -1,0 +1,24 @@
+{
+  "name": "personal-finances-backend",
+  "version": "1.0.0",
+  "description": "Personal Finances API",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.86.0",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "moment-timezone": "^0.6.0",
+    "nodemailer": "^7.0.11",
+    "nodemon": "^3.1.11"
+  }
+}
