@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport({
 export const EmailService = {
   async sendActivationEmail(email, username, activationToken) {
     // Cambiar a la ruta del frontend sin 'api/users/'
-    const activationLink = `${process.env.FRONTEND_URL}/api/users/activate-account/${activationToken}`;
+    const activationLink = `${process.env.FRONTEND_URL}/api/auth/activate-account/${activationToken}`;
 
     const mailOptions = {
       from: `"Personal Finances" <${process.env.EMAIL_FROM}>`,
@@ -133,7 +133,7 @@ export const EmailService = {
 
   async sendPasswordResetEmail(email, username, resetToken) {
     // Cambiar a la ruta del frontend sin 'api/users/'
-    const resetLink = `${process.env.FRONTEND_URL}/api/users/reset-password/${resetToken}`;
+    const resetLink = `${process.env.FRONTEND_URL}/api/auth/reset-password/${resetToken}`;
 
     const mailOptions = {
       from: `"Personal Finances" <${process.env.EMAIL_FROM}>`,

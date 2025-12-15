@@ -1,7 +1,30 @@
 import { AuthService } from "../services/authService.js";
+import { UserService } from "../services/userService.js";
 import { getLocalTime } from "../utils/dateFormatter.js";
 
 export const AuthController = {
+  async register(req, res) {
+    try {
+      const user = await UserService.createUser(req.body);
+      console.log(`[${getLocalTime()}] User registered: ${user.email}`);
+      res.status(201).json({
+        success: true,
+        data: user,
+        message:
+          "Registered user. Please check your email to activate your account.",
+      });
+    } catch (error) {
+      console.error(
+        `[${getLocalTime()}] Error registering user:`,
+        error.message
+      );
+      res.status(400).json({
+        success: false,
+        error: error.message,
+      });
+    }
+  },
+
   async signIn(req, res) {
     try {
       const { emailOrUsername, password } = req.body;
@@ -89,6 +112,28 @@ export const AuthController = {
       res.status(401).json({
         success: false,
         message: "Invalid session",
+      });
+    }
+  },
+
+  async activateAccount(req, res) {
+    try {
+      const { token } = req.params;
+      const user = await UserService.activateAccount(token);
+      console.log(`[${getLocalTime()}] Account activated: ${user.email}`);
+      res.status(200).json({
+        success: true,
+        data: user,
+        message: "Account successfully activated",
+      });
+    } catch (error) {
+      console.error(
+        `[${getLocalTime()}] Error activating account:`,
+        error.message
+      );
+      res.status(400).json({
+        success: false,
+        error: error.message,
       });
     }
   },

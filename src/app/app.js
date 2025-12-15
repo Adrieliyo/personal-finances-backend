@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import { supabase } from "../config/supabase.js";
 import userRoutes from "../routes/userRoutes.js";
 import authRoutes from "../routes/authRoutes.js";
+import accountRoutes from "../routes/accountRoutes.js";
 
 const app = express();
 
@@ -30,5 +31,6 @@ app.get("/health", (req, res) => {
 
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/accounts", accountRoutes);
 
 export { app };

@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import { UserModel } from "../models/userModel.js";
+import { AccountModel } from "../models/accountModel.js";
 import { EmailService } from "../utils/emailService.js";
 import {
   generateActivationToken,
@@ -40,6 +41,24 @@ export const UserService = {
     };
 
     const createdUser = await UserModel.create(newUser);
+
+    // Crear cuenta bancaria por defecto
+    try {
+      const defaultAccount = {
+        user_id: createdUser.id,
+        name: "Cuenta Principal",
+        account_type_id: 1, // 1 = Banco
+        current_balance: 0,
+      };
+
+      await AccountModel.create(defaultAccount);
+      console.log(
+        `Cuenta bancaria creada para el usuario: ${createdUser.username}`
+      );
+    } catch (accountError) {
+      console.error("Error creando cuenta por defecto:", accountError);
+      // No fallar el registro si la cuenta no se crea
+    }
 
     // Enviar email de activación
     try {
