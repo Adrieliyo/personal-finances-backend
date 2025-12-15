@@ -6,6 +6,7 @@ import userRoutes from "../routes/userRoutes.js";
 import authRoutes from "../routes/authRoutes.js";
 import accountRoutes from "../routes/accountRoutes.js";
 import categoryRoutes from "../routes/categoryRoutes.js";
+import budgetRoutes from "../routes/budgetRoutes.js";
 
 const app = express();
 
@@ -34,5 +35,6 @@ app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/accounts", accountRoutes);
 app.use("/api/categories", categoryRoutes);
+app.use("/api/budgets", budgetRoutes);
 
 export { app };
