@@ -2,6 +2,26 @@ import { UserService } from "../services/userService.js";
 import { getLocalTime } from "../utils/dateFormatter.js";
 
 export const UserController = {
+  async getProfile(req, res) {
+    try {
+      const userId = req.user.id;
+      const user = await UserService.getUserById(userId);
+      res.status(200).json({
+        success: true,
+        data: user,
+      });
+    } catch (error) {
+      console.error(
+        `[${getLocalTime()}] Error fetching profile:`,
+        error.message
+      );
+      res.status(404).json({
+        success: false,
+        error: error.message,
+      });
+    }
+  },
+
   async getAllUsers(req, res) {
     try {
       const users = await UserService.getAllUsers();
